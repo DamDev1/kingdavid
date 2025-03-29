@@ -4,6 +4,10 @@ import carDetails from "@/lib/carDetails.json";
 import InputForm from "@/components/addCar/inputForm";
 import Dropdown from "@/components/addCar/dropdown";
 import { Textarea } from "@/components/ui/textarea";
+import { Separator } from "@/components/ui/separator";
+import features from "@/lib/featuresData.json";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 
 export default function AddCar() {
   return (
@@ -53,6 +57,22 @@ export default function AddCar() {
                 </div>
               ))}
             </div>
+          </div>
+          <Separator className="mt-10" />
+          {/* features Details */}
+          <div>
+            <h2 className="font-medium text-xl my-6">Features</h2>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
+              {features.features.map((feature: any, index: number) => (
+                <div key={index} className="flex gap-2 items-center"> 
+                  <Checkbox /> <span>{feature.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-10">
+            <Button>Submit</Button>
           </div>
         </form>
       </div>

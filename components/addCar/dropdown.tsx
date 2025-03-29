@@ -11,7 +11,7 @@ export default function Dropdown({item}:any) {
   return (
     <Select>
       <SelectTrigger className="w-full">
-        <SelectValue placeholder={item?.name} />
+        <SelectValue/>
       </SelectTrigger>
       <SelectContent>
         {item?.options?.map((option: any) => (

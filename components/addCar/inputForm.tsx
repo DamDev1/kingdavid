@@ -6,7 +6,6 @@ export default function InputForm({ item }: any) {
     <div>
       <Input
         type={item?.fieldType}
-        value={item?.name}
         required={item?.required}
         placeholder={item?.label}
       />
