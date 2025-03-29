@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
-export interface ICarListing extends Document {
+interface ICarListing extends Document {
     listingTitle: string;
     tagline: string;
     originalPrice: string;
