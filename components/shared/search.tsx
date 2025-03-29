@@ -8,6 +8,11 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { SearchIcon } from "lucide-react";
 
+interface SearchProps {
+  id: number;
+  amount: number;
+}
+
 const CarMakes = [
   {
     id: 1,
@@ -92,23 +97,23 @@ const CarMakes = [
 ];
 
 const Pricing = [
-    {
-      id: 1,
-      amount: 1000,
-    },
-    {
-      id: 2,
-      amount: 2000,
-    },
-    {
-      id: 3,
-      amount: 5000,
-    },
-    {
-      id: 4,
-      amount: 10000,
-    },
-  ];
+  {
+    id: 1,
+    amount: 1000,
+  },
+  {
+    id: 2,
+    amount: 2000,
+  },
+  {
+    id: 3,
+    amount: 5000,
+  },
+  {
+    id: 4,
+    amount: 10000,
+  },
+];
 export default function Search() {
   return (
     <div className="flex items-center p-2 md:p-5 bg-white rounded-md md:rounded-full flex-col md:flex-row max-md:gap-3 gap-10 px-5 w-[60%]">
@@ -121,25 +126,29 @@ export default function Search() {
           <SelectItem value="dark">New</SelectItem>
         </SelectContent>
       </Select>
-      <Separator orientation="vertical" className="hidden md:block"/>
+      <Separator orientation="vertical" className="hidden md:block" />
       <Select>
         <SelectTrigger className="outline-none md:border-none w-full shawdow-none text-lg">
           <SelectValue placeholder="Car Makes" />
         </SelectTrigger>
         <SelectContent>
           {CarMakes.map((make) => (
-              <SelectItem key={make.id} value={make.name}>{make.name}</SelectItem>
+            <SelectItem key={make.id} value={make.name}>
+              {make.name}
+            </SelectItem>
           ))}
         </SelectContent>
       </Select>
-      <Separator orientation="vertical" className="hidden md:block"/>
+      <Separator orientation="vertical" className="hidden md:block" />
       <Select>
         <SelectTrigger className="outline-none md:border-none w-full shawdow-none text-lg">
           <SelectValue placeholder="Price" />
         </SelectTrigger>
         <SelectContent>
-          {Pricing.map((price: any) => (
-              <SelectItem key={price.id} value={price.amount}>{price.amount}</SelectItem>
+          {Pricing.map((price: SearchProps) => (
+            <SelectItem key={price.id} value={`${price.amount}`}>
+            {price.amount}
+          </SelectItem>
           ))}
         </SelectContent>
       </Select>
