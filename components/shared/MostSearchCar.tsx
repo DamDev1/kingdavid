@@ -23,7 +23,6 @@ interface ICar {
 }
 
 export default function MostSearchCar() {
-  console.log(carList);
   return (
     <section className="mx-24 max-md:mx-5">
       <h2 className="text-3xl font-bold text-center mt-16 mb-7">

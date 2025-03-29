@@ -23,7 +23,7 @@ export default function Footer() {
                 href="#"
                 className="block text-2xl font-medium  hover:opacity-75 sm:text-3xl text-white"
               >
-                0123456789
+                +1 (706) 407-5084
               </a>
             </p>
 
@@ -274,7 +274,7 @@ export default function Footer() {
             </ul>
 
             <p className="mt-8 text-xs  sm:mt-0 text-gray-400">
-              &copy; 2022. Company Name. All rights reserved.
+              &copy; 2025. KingDavidAuto. All rights reserved.
             </p>
           </div>
         </div>

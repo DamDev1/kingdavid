@@ -7,9 +7,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export default function Dropdown({item}:any) {
+export default function Dropdown({item, handleChange}:any) {
   return (
-    <Select>
+    <Select onValueChange={(value) => handleChange(item?.name, value)}>
       <SelectTrigger className="w-full">
         <SelectValue/>
       </SelectTrigger>
