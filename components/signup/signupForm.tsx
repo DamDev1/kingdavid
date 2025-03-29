@@ -2,13 +2,39 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useState } from "react";
+import axios from "axios";
+import { toast } from "sonner";
+import { Loader2Icon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export function SignupForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const navigate = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const res = await axios.post("/api/sign-up", { firstName, lastName, email, password, role: "user" });
+      toast.success("Sign up successful!");
+      navigate.push("/login");
+      setIsLoading(false);
+    } catch (error) {
+      toast.error("Sign up failed!");
+      setIsLoading(false);
+    }
+  }
+
   return (
-    <form className={cn("flex flex-col gap-6", className)} {...props}>
+    <form onSubmit={(e) => handleSubmit(e)} className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Create an account</h1>
         <p className="text-balance text-sm text-muted-foreground">
@@ -18,24 +44,24 @@ export function SignupForm({
       <div className="grid gap-6">
         <div className="grid gap-2">
           <Label htmlFor="firstname">Firstname</Label>
-          <Input id="firstname" type="text" placeholder="John" required />
+          <Input onChange={(e) => setFirstName(e.target.value)} id="firstname" type="text" placeholder="John" required />
         </div>
         <div className="grid gap-2">
           <Label htmlFor="lastname">Lastname</Label>
-          <Input id="lastname" type="text" placeholder="Deo" required />
+          <Input onChange={(e) => setLastName(e.target.value)} id="lastname" type="text" placeholder="Deo" required />
         </div>
         <div className="grid gap-2">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" placeholder="m@example.com" required />
+          <Input onChange={(e) => setEmail(e.target.value)} id="email" type="email" placeholder="m@example.com" required />
         </div>
         <div className="grid gap-2">
           <div className="flex items-center">
             <Label htmlFor="password">Password</Label>
           </div>
-          <Input id="password" type="password" required />
+          <Input onChange={(e) => setPassword(e.target.value)} id="password" type="password" required />
         </div>
         <Button type="submit" className="w-full">
-          Signup
+          {isLoading ? <Loader2Icon className="animate-spin"/> :"Signup"}
         </Button>
       </div>
       <div className="text-center text-sm">
