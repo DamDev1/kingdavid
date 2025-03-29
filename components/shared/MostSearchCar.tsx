@@ -13,6 +13,15 @@ import { TbBrandSpeedtest } from "react-icons/tb";
 import { GiGearStickPattern } from "react-icons/gi";
 import { MdOpenInNew } from "react-icons/md";
 
+interface ICar {
+  image: string;
+  name: string;
+  miles: number;
+  fuelType: string;
+  gearType: string;
+  price: string;
+}
+
 export default function MostSearchCar() {
   console.log(carList);
   return (
@@ -23,8 +32,8 @@ export default function MostSearchCar() {
 
       <Carousel>
         <CarouselContent>
-          {carList.carList.map((car: any) => (
-            <CarouselItem className="basis-1/4 max-md:basis-1/2">
+          {carList.carList.map((car: ICar, index: number) => (
+            <CarouselItem className="basis-1/4 max-md:basis-1/2" key={index}>
               <div className="shadow-lg rounded-xl bg-white">
                 <h2 className="absolute top-0 bg-green-600 m-2 rounded-full text-white text-sm font-semibold px-2 py-1">
                   New
