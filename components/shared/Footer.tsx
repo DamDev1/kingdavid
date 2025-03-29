@@ -20,7 +20,7 @@ export default function Footer() {
               </span>
 
               <a
-                href="#"
+                href="tel:+1 (706) 407-5084"
                 className="block text-2xl font-medium  hover:opacity-75 sm:text-3xl text-white"
               >
                 +1 (706) 407-5084

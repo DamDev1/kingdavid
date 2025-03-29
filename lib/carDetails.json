@@ -103,7 +103,7 @@
       },
       {
         "label": "Model",
-        "name": "model",
+        "name": "carModel",
         "fieldType": "text",
         "required": true,
         "column": 1,
