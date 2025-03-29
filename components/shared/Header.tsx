@@ -21,7 +21,14 @@ export default function Header() {
           Win a car
         </li>
       </nav>
-     <Link href={'/login'}><Button>Sign in</Button></Link>
+      <div className="flex gap-2.5 items-center">
+        <Link href={"/login"}>
+          <Button variant={"outline"}>Login</Button>
+        </Link>
+        <Link href={"/signup"}>
+          <Button>Sign up</Button>
+        </Link>
+      </div>
     </header>
   );
 }
