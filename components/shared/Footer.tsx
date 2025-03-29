@@ -24,7 +24,7 @@ export default function Footer() {
                 className="block text-2xl font-medium  hover:opacity-75 sm:text-3xl text-white"
               >
                 +1 (706) 407-5084
-              </a>
+              </a> 
             </p>
 
             <ul className="mt-8 space-y-1 text-sm text-gray-200">
