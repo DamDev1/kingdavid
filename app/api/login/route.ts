@@ -42,6 +42,7 @@ export async function POST(req: NextRequest) {
           password: user.password,
           firstName: user.firstName,
           lastName: user.lastName,
+          role: user.role,
         },
       },
       { status: 200 }
