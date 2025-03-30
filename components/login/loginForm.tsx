@@ -20,6 +20,13 @@ export function LoginForm({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useRouter();
 
+  const userInfo = useSelector((state: any) => state.auth.userInfo);
+
+  if (userInfo) {
+    navigate.push("/dashboard");
+  }
+
+
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);

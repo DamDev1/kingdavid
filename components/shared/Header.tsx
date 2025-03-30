@@ -1,9 +1,12 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Button } from "../ui/button";
 import Logo from "./logo";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 export default function Header() {
+  const userInfo = useSelector((state: any) => state.auth.userInfo);
+
   return (
     <header className="p-5 flex justify-between items-center shadow-sm">
       <Logo />
@@ -22,12 +25,20 @@ export default function Header() {
         </li>
       </nav>
       <div className="flex gap-2.5 items-center">
-        <Link href={"/login"}>
-          <Button variant={"outline"}>Login</Button>
-        </Link>
-        <Link href={"/signup"}>
-          <Button>Sign up</Button>
-        </Link>
+        {userInfo ? (
+          <Link href="/dashboard">
+            <Button>Dashboard</Button>
+          </Link>
+        ) : (
+          <Fragment>
+            <Link href={"/login"}>
+              <Button variant={"outline"}>Login</Button>
+            </Link>
+            <Link href={"/signup"}>
+              <Button>Sign up</Button>
+            </Link>
+          </Fragment>
+        )}
       </div>
     </header>
   );
