@@ -10,6 +10,51 @@ import features from "@/lib/featuresData.json";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
+import { FaClipboardList } from "react-icons/fa";
+import { FaTag } from "react-icons/fa";
+import { FaDollarSign } from "react-icons/fa";
+import { FaMoneyBillAlt } from "react-icons/fa";
+import { FaCar } from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
+import { FaChargingStation } from "react-icons/fa";
+import { FaIndustry } from "react-icons/fa";
+import { FaCarSide } from "react-icons/fa";
+import { FaCalendarAlt } from "react-icons/fa";
+import { FaRoad } from "react-icons/fa";
+import { FaCogs } from "react-icons/fa";
+import { FaGasPump } from "react-icons/fa";
+import { FaTachometerAlt } from "react-icons/fa";
+import { FaWrench } from "react-icons/fa";
+import { FaCircle } from "react-icons/fa";
+import { FaPalette } from "react-icons/fa";
+import { FaDoorClosed } from "react-icons/fa";
+import { FaIdCard } from "react-icons/fa";
+import { FaTags } from "react-icons/fa";
+import { FaFileAlt } from "react-icons/fa";
+
+const iconMap = {
+  FaClipboardList: <FaClipboardList />,
+  FaTag: <FaTag />,
+  FaDollarSign: <FaDollarSign />,
+  FaMoneyBillAlt: <FaMoneyBillAlt />,
+  FaCar: <FaCar />,
+  FaCheckCircle: <FaCheckCircle />,
+  FaChargingStation: <FaChargingStation />,
+  FaIndustry: <FaIndustry />,
+  FaCarSide: <FaCarSide />,
+  FaCalendarAlt: <FaCalendarAlt />,
+  FaRoad: <FaRoad />,
+  FaCogs: <FaCogs />,
+  FaGasPump: <FaGasPump />,
+  FaTachometerAlt: <FaTachometerAlt />,
+  FaWrench: <FaWrench />,
+  FaCircle: <FaCircle />,
+  FaPalette: <FaPalette />,
+  FaDoorClosed: <FaDoorClosed />,
+  FaIdCard: <FaIdCard />,
+  FaTags: <FaTags />,
+  FaFileAlt: <FaFileAlt />,
+};
 
 export default function AddCar() {
   const [formDetails, setFormDetails] = useState<{ [key: string]: any }>({});
@@ -47,26 +92,61 @@ export default function AddCar() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {carDetails.carDetails.map((detail, index) => (
                 <div key={index}>
-                  {detail.fieldType === "text" || detail.fieldType === "number" ? (
+                  {detail.fieldType === "text" ||
+                  detail.fieldType === "number" ? (
                     <div className="flex flex-col gap-2">
-                      <label className="text-sm">
-                        {detail.label} {detail.required && <span className="text-red-600">*</span>}
+                      <label className="text-sm flex gap-1.5 items-center">
+                        <div className="text-blue-600 bg-blue-100 p-1.5 rounded-full">
+                          {iconMap[detail?.icon as keyof typeof iconMap] && (
+                            <span className="text-blue-600">
+                              {iconMap[detail.icon as keyof typeof iconMap]}
+                            </span>
+                          )}
+                        </div>
+                        {detail.label}{" "}
+                        {detail.required && (
+                          <span className="text-red-600">*</span>
+                        )}
                       </label>
                       <InputForm item={detail} handleChange={handleChange} />
                     </div>
                   ) : detail.fieldType === "dropdown" ? (
                     <div className="flex flex-col gap-2">
-                      <label className="text-sm">
-                        {detail.label} {detail.required && <span className="text-red-600">*</span>}
+                      <label className="text-sm flex gap-1.5 items-center">
+                        <div className="text-blue-600 bg-blue-100 p-1.5 rounded-full">
+                          {iconMap[detail?.icon as keyof typeof iconMap] && (
+                            <span className="text-blue-600">
+                              {iconMap[detail.icon as keyof typeof iconMap]}
+                            </span>
+                          )}
+                        </div>
+                        {detail.label}{" "}
+                        {detail.required && (
+                          <span className="text-red-600">*</span>
+                        )}
                       </label>
                       <Dropdown item={detail} handleChange={handleChange} />
                     </div>
                   ) : detail.fieldType === "textarea" ? (
                     <div className="flex flex-col gap-2">
-                      <label className="text-sm">
-                        {detail.label} {detail.required && <span className="text-red-600">*</span>}
+                      <label  className="text-sm flex gap-1.5 items-center">
+                        <div className="text-blue-600 bg-blue-100 p-1.5 rounded-full">
+                          {iconMap[detail?.icon as keyof typeof iconMap] && (
+                            <span className="text-blue-600">
+                              {iconMap[detail.icon as keyof typeof iconMap]}
+                            </span>
+                          )}
+                        </div>
+                        {detail.label}{" "}
+                        {detail.required && (
+                          <span className="text-red-600">*</span>
+                        )}
                       </label>
-                      <Textarea onChange={(e) => handleChange(detail?.name, e.target.value)} />
+                      <Textarea
+                        onChange={(e) =>
+                          handleChange(detail?.name, e.target.value)
+                        }
+                      />
                     </div>
                   ) : null}
                 </div>
@@ -83,7 +163,9 @@ export default function AddCar() {
               {features.features.map((feature, index) => (
                 <div key={index} className="flex gap-2 items-center">
                   <Checkbox
-                    onCheckedChange={(checked) => handleChange(feature?.name, checked ? "yes" : "no")}
+                    onCheckedChange={(checked) =>
+                      handleChange(feature?.name, checked ? "yes" : "no")
+                    }
                   />
                   <span>{feature.label}</span>
                 </div>
