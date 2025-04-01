@@ -59,6 +59,8 @@ const iconMap = {
 export default function AddCar() {
   const [formDetails, setFormDetails] = useState<{ [key: string]: any }>({});
   const [loading, setLoading] = useState(false);
+  const [featuresContainer, setFeaturesContainer] = useState<string[]>([]);
+
 
   const handleChange = (name: string, value: string) => {
     setFormDetails((prevDetails) => ({
@@ -67,11 +69,25 @@ export default function AddCar() {
     }));
   };
 
+  const handleGetFeatures = (feature: string) => {
+    setFeaturesContainer((prevFeatures) =>
+      prevFeatures.includes(feature)
+        ? prevFeatures.filter((f) => f !== feature) // Remove if already selected
+        : [...prevFeatures, feature] // Add if not selected
+    );
+
+    console.log(featuresContainer.slice(0,10))
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post("/api/add-car", formDetails);
+      const payload = {
+        ...formDetails,
+        features: featuresContainer.slice(0), // Include features object
+      };
+      const res = await axios.post("/api/add-car", payload);
       console.log("Success:", res.data);
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -129,7 +145,7 @@ export default function AddCar() {
                     </div>
                   ) : detail.fieldType === "textarea" ? (
                     <div className="flex flex-col gap-2">
-                      <label  className="text-sm flex gap-1.5 items-center">
+                      <label className="text-sm flex gap-1.5 items-center">
                         <div className="text-blue-600 bg-blue-100 p-1.5 rounded-full">
                           {iconMap[detail?.icon as keyof typeof iconMap] && (
                             <span className="text-blue-600">
@@ -163,10 +179,10 @@ export default function AddCar() {
               {features.features.map((feature, index) => (
                 <div key={index} className="flex gap-2 items-center">
                   <Checkbox
-                    onCheckedChange={(checked) =>
-                      handleChange(feature?.name, checked ? "yes" : "no")
-                    }
+                    checked={featuresContainer.includes(feature.label)}
+                    onCheckedChange={() => handleGetFeatures(feature.label)}
                   />
+
                   <span>{feature.label}</span>
                 </div>
               ))}

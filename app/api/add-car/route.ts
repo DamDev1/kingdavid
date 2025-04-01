@@ -13,7 +13,7 @@ export async function POST(req: Request) {
             "listingTitle", "tagline", "originalPrice", "category", "condition",
             "make", "carModel", "year", "driveType", "transmission", "fuelType",
             "mileage", "engineSize", "cylinder", "color", "sellingPrice",
-            "door", "listingDescription"
+            "door", "listingDescription", "features"
         ];
         
         // Check for missing fields
