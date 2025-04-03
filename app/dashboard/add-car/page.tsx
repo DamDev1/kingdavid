@@ -32,6 +32,8 @@ import { FaIdCard } from "react-icons/fa";
 import { FaTags } from "react-icons/fa";
 import { FaFileAlt } from "react-icons/fa";
 import UploadImage from "@/components/addCar/UploadImage";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const iconMap = {
   FaClipboardList: <FaClipboardList />,
@@ -61,8 +63,8 @@ export default function AddCar() {
   const [formDetails, setFormDetails] = useState<{ [key: string]: any }>({});
   const [loading, setLoading] = useState(false);
   const [featuresContainer, setFeaturesContainer] = useState<string[]>([]);
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [selectedImageFile, setSelectedImageFile] = useState<File[]>([]);
+  const router = useRouter()
 
   const handleChange = (name: string, value: string) => {
     setFormDetails((prevDetails) => ({
@@ -78,26 +80,6 @@ export default function AddCar() {
           ? prevFeatures.filter((f) => f !== feature) // Remove if already selected
           : [...prevFeatures, feature] // Add if not selected
     );
-  };
-
-  const UploadImages = async () => {
-    if (selectedImageFile.length === 0) return;
-
-    const formData = new FormData();
-    selectedImageFile.forEach((file) => {
-      formData.append("images", file); // 'images' matches your API endpoint
-    });
-    try {
-      const res = await axios.post("/api/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      const urls = res.data.imageUrls;
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -123,15 +105,16 @@ export default function AddCar() {
           features: featuresContainer,
           imageUrls:urls,
         };
-        const res = await axios.post("/api/add-car", payload);
-        console.log("Success:", res.data);
+        await axios.post("/api/add-car", payload);
+        router.push('/dashboard')
+        toast.success("Car Added Successfully");
       } catch (error) {
-        console.error("Error submitting form:", error);
+        toast.success("Failed to add car");
       } finally {
         setLoading(false);
       }
     } catch (error) {
-      console.log(error);
+      toast.success("Failed to upload images");
     }
   };
 
