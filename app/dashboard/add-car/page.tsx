@@ -31,6 +31,7 @@ import { FaDoorClosed } from "react-icons/fa";
 import { FaIdCard } from "react-icons/fa";
 import { FaTags } from "react-icons/fa";
 import { FaFileAlt } from "react-icons/fa";
+import UploadImage from "@/components/addCar/UploadImage";
 
 const iconMap = {
   FaClipboardList: <FaClipboardList />,
@@ -60,7 +61,6 @@ export default function AddCar() {
   const [formDetails, setFormDetails] = useState<{ [key: string]: any }>({});
   const [loading, setLoading] = useState(false);
   const [featuresContainer, setFeaturesContainer] = useState<string[]>([]);
-
 
   const handleChange = (name: string, value: string) => {
     setFormDetails((prevDetails) => ({
@@ -188,6 +188,8 @@ export default function AddCar() {
               ))}
             </div>
           </div>
+          <Separator className="mt-10" />
+          <UploadImage/>
 
           <div className="mt-10">
             <Button type="submit" disabled={loading}>
