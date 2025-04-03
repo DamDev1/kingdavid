@@ -1,10 +1,15 @@
 import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaTimes } from 'react-icons/fa';
 import { Button } from '../ui/button';
 
-export default function UploadImage() {
-    const [selectedImageFile, setSelectedImageFile] = useState<File[]>([]);
+interface UploadImageProps {
+    setSelectedImageFile:React.Dispatch<React.SetStateAction<File[]>>;
+    selectedImageFile:File[]
+  }
+  
+export default function UploadImage({setSelectedImageFile, selectedImageFile}:UploadImageProps) {
+    // const [selectedImageFile, setSelectedImageFile] = useState<File[]>([]);
 
     const onFileSelected = (event:React.ChangeEvent<HTMLInputElement>) => {
         if (!event.target.files) return; // Ensure files exist
@@ -16,25 +21,6 @@ export default function UploadImage() {
     const handleDeleteImage = (image:object) =>{
         const result = selectedImageFile.filter((item)=> item!=image)
         setSelectedImageFile(result);
-    }
-
-    const UploadImages = async() => {
-        if (selectedImageFile.length === 0) return;
-
-        const formData = new FormData();
-        selectedImageFile.forEach(file => {
-            formData.append('images', file); // 'images' matches your API endpoint
-        });
-        try {
-            const res = await axios.post('/api/upload', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
-            console.log(res)
-        } catch (error) {
-            console.log(error)
-        }
     }
     
 
@@ -58,7 +44,6 @@ export default function UploadImage() {
             </label>
             <input type="file" accept="image/*" multiple id="upload-images" className='opacity-0' onChange={onFileSelected}/>
         </div>
-        <Button onClick={UploadImages}>UploadImages</Button>
     </div>
   )
 }

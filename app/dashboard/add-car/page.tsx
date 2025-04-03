@@ -1,6 +1,6 @@
 "use client";
 import Header from "@/components/shared/Header";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import carDetails from "@/lib/carDetails.json";
 import InputForm from "@/components/addCar/inputForm";
 import Dropdown from "@/components/addCar/dropdown";
@@ -61,6 +61,8 @@ export default function AddCar() {
   const [formDetails, setFormDetails] = useState<{ [key: string]: any }>({});
   const [loading, setLoading] = useState(false);
   const [featuresContainer, setFeaturesContainer] = useState<string[]>([]);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [selectedImageFile, setSelectedImageFile] = useState<File[]>([]);
 
   const handleChange = (name: string, value: string) => {
     setFormDetails((prevDetails) => ({
@@ -70,32 +72,72 @@ export default function AddCar() {
   };
 
   const handleGetFeatures = (feature: string) => {
-    setFeaturesContainer((prevFeatures) =>
-      prevFeatures.includes(feature)
-        ? prevFeatures.filter((f) => f !== feature) // Remove if already selected
-        : [...prevFeatures, feature] // Add if not selected
+    setFeaturesContainer(
+      (prevFeatures) =>
+        prevFeatures.includes(feature)
+          ? prevFeatures.filter((f) => f !== feature) // Remove if already selected
+          : [...prevFeatures, feature] // Add if not selected
     );
+  };
 
-    console.log(featuresContainer.slice(0,10))
+  const UploadImages = async () => {
+    if (selectedImageFile.length === 0) return;
+
+    const formData = new FormData();
+    selectedImageFile.forEach((file) => {
+      formData.append("images", file); // 'images' matches your API endpoint
+    });
+    try {
+      const res = await axios.post("/api/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      const urls = res.data.imageUrls;
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
+    if (selectedImageFile.length === 0) return;
+
+    const formData = new FormData();
+    selectedImageFile.forEach((file) => {
+      formData.append("images", file); // 'images' matches your API endpoint
+    });
     try {
-      const payload = {
-        ...formDetails,
-        features: featuresContainer.slice(0), // Include features object
-      };
-      const res = await axios.post("/api/add-car", payload);
-      console.log("Success:", res.data);
+      const res = await axios.post("/api/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      const urls = res.data.imageUrls;
+      try {
+        const payload = {
+          ...formDetails,
+          features: featuresContainer,
+          imageUrls:urls,
+        };
+        const res = await axios.post("/api/add-car", payload);
+        console.log("Success:", res.data);
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      } finally {
+        setLoading(false);
+      }
     } catch (error) {
-      console.error("Error submitting form:", error);
-    } finally {
-      setLoading(false);
+      console.log(error);
     }
   };
 
+  // useEffect(() =>{
+  //   console.log(imageUrls)
+  // },[imageUrls])
   return (
     <section>
       <Header />
@@ -189,7 +231,10 @@ export default function AddCar() {
             </div>
           </div>
           <Separator className="mt-10" />
-          <UploadImage/>
+          <UploadImage
+            setSelectedImageFile={setSelectedImageFile}
+            selectedImageFile={selectedImageFile}
+          />
 
           <div className="mt-10">
             <Button type="submit" disabled={loading}>
