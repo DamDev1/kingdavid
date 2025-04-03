@@ -22,6 +22,7 @@ interface ICarListing extends Document {
     offerType?: string;
     listingDescription: string;
     features: string[];
+    imageUrls: string[];
 }
 
 const CarListingSchema: Schema = new Schema<ICarListing>({
@@ -51,6 +52,7 @@ const CarListingSchema: Schema = new Schema<ICarListing>({
     offerType: { type: String, trim: true, default: "" },
     listingDescription: { type: String, required: true, trim: true },
     features: [{ type: String, trim: true }],
+    imageUrls:[{type: String, trim: true}]
 });
 
 // Prevent OverwriteModelError
