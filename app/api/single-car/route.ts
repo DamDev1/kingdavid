@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
             data: car
         }, { status: 200 })
     } catch (error) {
-        console.error("Login error:", error);
+        console.error("Failed to fetch", error);
 
         return NextResponse.json(
             {
