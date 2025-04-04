@@ -33,7 +33,6 @@ export default function CarListing() {
   const handleGetCars = async () => {
     try {
       const res = await axios.get("/api/cars");
-      toast.success('hello')
       setCarData(res.data.data);
       console.log(res.data.data);
     } catch (error) {

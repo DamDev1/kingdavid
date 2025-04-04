@@ -32,8 +32,8 @@ import { FaIdCard } from "react-icons/fa";
 import { FaTags } from "react-icons/fa";
 import { FaFileAlt } from "react-icons/fa";
 import UploadImage from "@/components/addCar/UploadImage";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const iconMap = {
   FaClipboardList: <FaClipboardList />,
@@ -64,7 +64,8 @@ export default function AddCar() {
   const [loading, setLoading] = useState(false);
   const [featuresContainer, setFeaturesContainer] = useState<string[]>([]);
   const [selectedImageFile, setSelectedImageFile] = useState<File[]>([]);
-  const router = useRouter()
+  const [imagesLinks, setImagesLinks] = useState<string[]>([]);
+  const router = useRouter();
 
   const handleChange = (name: string, value: string) => {
     setFormDetails((prevDetails) => ({
@@ -85,38 +86,63 @@ export default function AddCar() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
-    if (selectedImageFile.length === 0) return;
-
-    const formData = new FormData();
-    selectedImageFile.forEach((file) => {
-      formData.append("images", file); // 'images' matches your API endpoint
-    });
+  
+    // Basic form validation
+    const isFormValid =
+      Object.values(formDetails).every((val) => val !== "" && val !== null) &&
+      featuresContainer.length > 0;
+  
+    if (!isFormValid) {
+      toast.error("Please fill all required fields and add features.");
+      setLoading(false);
+      return;
+    }
+  
     try {
-      const res = await axios.post("/api/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      const urls = res.data.imageUrls;
-      try {
-        const payload = {
-          ...formDetails,
-          features: featuresContainer,
-          imageUrls:urls,
-        };
-        await axios.post("/api/add-car", payload);
-        router.push('/dashboard')
-        toast.success("Car Added Successfully");
-      } catch (error) {
-        toast.success("Failed to add car");
-      } finally {
-        setLoading(false);
+      let uploadedUrls = imagesLinks;
+  
+      // Upload only if no previous links exist
+      if (!uploadedUrls || uploadedUrls.length === 0) {
+        if (selectedImageFile.length === 0) {
+          toast.error("Please select at least one image.");
+          setLoading(false);
+          return;
+        }
+  
+        const formData = new FormData();
+        selectedImageFile.forEach((file) => {
+          formData.append("images", file);
+        });
+  
+        const res = await axios.post("/api/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+  
+        uploadedUrls = res.data.imageUrls;
+        setImagesLinks(uploadedUrls);
       }
+  
+      // Proceed to submit the car form
+      const payload = {
+        ...formDetails,
+        features: featuresContainer,
+        imageUrls: uploadedUrls,
+      };
+  
+      await axios.post("/api/add-car", payload);
+      toast.success("Car Added Successfully");
+      router.push("/dashboard");
     } catch (error) {
-      toast.success("Failed to upload images");
+      console.error(error);
+      toast.error("Failed to submit the form. Try again.");
+    } finally {
+      setLoading(false);
     }
   };
+  
+  
 
   // useEffect(() =>{
   //   console.log(imageUrls)
