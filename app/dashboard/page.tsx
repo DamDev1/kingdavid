@@ -1,19 +1,26 @@
 "use client";
 import Header from "@/components/shared/Header";
-import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import CarListing from "@/components/dashboard/carListing/car-listing";
 
 export default function Admin() {
   const navigate = useRouter();
   return (
     <div>
       <Header />
-      <div className="px-10 md:px-20 my-10">
-        <div className="flex justify-between items-center">
-          <h2 className="font-bold text-4xl">My Listing</h2>
-          <Button onClick={() => navigate.push("/dashboard/add-car")}>+Add Listing</Button>
-        </div>
+      <div className="px-10 my-10">
+        <Tabs defaultValue="my-listing" className="w-full">
+          <TabsList className="w-full justify-start flex">
+            <TabsTrigger value="my-listing" className=" cursor-pointer">My Listing</TabsTrigger>
+            <TabsTrigger value="inbox" className=" cursor-pointer">Inbox</TabsTrigger>
+          </TabsList>
+          <TabsContent value="my-listing">
+            <CarListing/>
+          </TabsContent>
+          <TabsContent value="inbox">Change your password here.</TabsContent>
+        </Tabs>
       </div>
     </div>
   );
