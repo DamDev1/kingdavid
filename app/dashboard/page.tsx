@@ -6,7 +6,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CarListing from "@/components/dashboard/carListing/car-listing";
 
 export default function Admin() {
-  const navigate = useRouter();
   return (
     <div>
       <Header />
