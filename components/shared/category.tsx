@@ -1,6 +1,8 @@
+import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function Category() {
+  const route = useRouter()
   const Category = [
     {
       id: 1,
@@ -53,7 +55,7 @@ export default function Category() {
       <h1 className="text-3xl font-bold text-center mb-16">Browse By Type</h1>
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-6 px-20 max-md:px-5">
         {Category.map((type) => (
-          <div key={type.id} className="border rounded-xl p-3 items-center flex flex-col hover:shadow-md cursor-pointer">
+          <div key={type.id} className="border rounded-xl p-3 items-center flex flex-col hover:shadow-md cursor-pointer" onClick={() => route.push(`/car-category/${type.name}`)}>
             <img width={35} height={35} src={type.icon} alt={type.name} />
             <h1 className="mt-2">{type.name}</h1>
           </div>

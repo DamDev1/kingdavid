@@ -28,8 +28,6 @@ interface ICar {
 export default function MostSearchCar() {
   const navigate = useRouter();
   const [carData, setCarData] = useState([]);
-  const [isDeleteModal, setIsDeleteModal] = useState(false);
-  const [carId, setCarId] = useState("");
 
   const handleGetCars = async () => {
     try {

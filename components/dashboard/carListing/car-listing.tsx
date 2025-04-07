@@ -13,7 +13,6 @@ import { MdOpenInNew } from "react-icons/md";
 import { TbBrandSpeedtest } from "react-icons/tb";
 import { toast } from "react-toastify";
 
-
 interface ICar {
   _id: string;
   imageUrls: string;
@@ -27,7 +26,7 @@ interface ICar {
 export default function CarListing() {
   const navigate = useRouter();
   const [carData, setCarData] = useState([]);
-  const [isDeleteModal, setIsDeleteModal] = useState(false)
+  const [isDeleteModal, setIsDeleteModal] = useState(false);
   const [carId, setCarId] = useState("");
 
   const handleGetCars = async () => {
@@ -45,7 +44,14 @@ export default function CarListing() {
   }, []);
   return (
     <div className="mt-5">
-      {isDeleteModal && <DeleteCarModal carId={carId} handleGetCars={handleGetCars} isDeleteModal={isDeleteModal} setIsDeleteModal={setIsDeleteModal}/>}
+      {isDeleteModal && (
+        <DeleteCarModal
+          carId={carId}
+          handleGetCars={handleGetCars}
+          isDeleteModal={isDeleteModal}
+          setIsDeleteModal={setIsDeleteModal}
+        />
+      )}
       <div className="flex justify-between items-center">
         <h2 className="font-bold text-4xl">My Listing</h2>
         <Button onClick={() => navigate.push("/dashboard/add-car")}>
@@ -69,7 +75,7 @@ export default function CarListing() {
             </div>
             <div className="p-4">
               <h2 className="font-bold text-black text-lg mb-2">
-                {car?.listingTitle}
+                {car?.listingTitle.slice(0, 40) + "..."}
               </h2>
               <Separator className="border" />
               <div className="grid grid-cols-3 mt-5">
@@ -98,13 +104,17 @@ export default function CarListing() {
               </div>
             </div>
             <div className="p-2 bg-gray-50 rounded-xl flex justify-between gap-3">
-              <Button variant={"outline"} className="w-full flex-1/2" onClick={() => navigate.push(`/dashboard/edit-car/${car._id}`)}>
+              <Button
+                variant={"outline"}
+                className="w-full flex-1/2"
+                onClick={() => navigate.push(`/dashboard/edit-car/${car._id}`)}
+              >
                 Edit
               </Button>
               <Button
                 onClick={() => {
-                  setIsDeleteModal(true)
-                  setCarId(car._id)
+                  setIsDeleteModal(true);
+                  setCarId(car._id);
                 }}
                 variant={"destructive"}
                 className="cursor-pointer"
