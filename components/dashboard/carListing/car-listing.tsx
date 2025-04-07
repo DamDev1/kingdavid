@@ -98,7 +98,7 @@ export default function CarListing() {
               </div>
             </div>
             <div className="p-2 bg-gray-50 rounded-xl flex justify-between gap-3">
-              <Button variant={"outline"} className="w-full flex-1/2">
+              <Button variant={"outline"} className="w-full flex-1/2" onClick={() => navigate.push(`/dashboard/edit-car/${car._id}`)}>
                 Edit
               </Button>
               <Button
