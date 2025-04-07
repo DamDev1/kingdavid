@@ -114,7 +114,7 @@ export default function SearchPage() {
                   </div>
                   <div className="p-4">
                     <h2 className="font-bold text-black text-lg mb-2">
-                      {car?.listingTitle.slice(0, 50) + "..."}
+                      {car?.listingTitle.slice(0, 35) + "..."}
                     </h2>
                     <Separator className="border" />
                     <div className="grid grid-cols-3 mt-5">
