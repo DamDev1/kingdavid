@@ -1,9 +1,11 @@
+import connectMongo from "@/lib/mongodb";
 import CarListing from "@/modals/CarListing";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req:NextRequest){ 
 
     try {
+        await connectMongo()
         const categoryName = req.nextUrl.searchParams.get('category');
 
         if(!categoryName){
