@@ -22,6 +22,7 @@ import { FaDoorClosed } from "react-icons/fa";
 import { FaIdCard } from "react-icons/fa";
 import { FaTags } from "react-icons/fa";
 import { FaFileAlt } from "react-icons/fa";
+import Link from "next/link";
 
 const iconMap = {
   originalPrice: <FaDollarSign />,
@@ -58,7 +59,10 @@ export default function RightDetails({
       <div className="bg-white p-8 shadow-md border rounded-md">
         <h2 className="text-lg font-semibold">Our Price</h2>
         <h2 className="text-3xl font-bold mt-2">{price}</h2>
-        <Button className="w-full mt-5 flex items-center">Make an Offer Price<FaTag className="h-3 w-3"/></Button>
+        <Button className="w-full mt-5 flex items-center">
+          Make an Offer Price
+          <FaTag className="h-3 w-3" />
+        </Button>
       </div>
 
       <div className="bg-white p-8 shadow-md border rounded-md mt-4">
@@ -77,6 +81,28 @@ export default function RightDetails({
               </li>
             ))}
         </ul>
+      </div>
+
+      <div className="bg-white p-8 shadow-md border rounded-md mt-4">
+        <h2 className="text-lg font-semibold">Dealer/Owner</h2>
+        <img
+          src="https://storage.googleapis.com/pod_public/1300/121017.jpg"
+          className="h-20 w-20 rounded-full object-cover mt-3"
+          alt=""
+        />
+        <h2 className="text-lg font-semibold mt-1">KingDavidAuto</h2>
+        <p className="mt-1.5">
+          <Link href="tel:+1(718)883-0643" className="text-gray-500">
+            Call: +1 (718) 883-0643
+          </Link>
+          <br />
+          <Link
+            href="mailto:samueldamilare622@gmail.com"
+            className="text-gray-500"
+          >
+            Mail: samueldamilare622@gmail.com
+          </Link>
+        </p>
       </div>
     </div>
   );

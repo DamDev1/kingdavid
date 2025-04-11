@@ -2,7 +2,9 @@
 import Heading from "@/components/carDetails/Heading";
 import LeftDetails from "@/components/carDetails/LeftDetails";
 import RightDetails from "@/components/carDetails/RightDetails";
+import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Header";
+import RelatedListing from "@/components/shared/RelatedListing";
 import CarDetailsProps from "@/types/carDetails";
 import axios from "axios";
 import { useParams } from "next/navigation";
@@ -39,7 +41,9 @@ export default function SingleCarDetails() {
               </div>
               <RightDetails carData={carData}/>
             </div>
+            <RelatedListing />
           </div>
+          <Footer/>
         </>
       )}
     </section>

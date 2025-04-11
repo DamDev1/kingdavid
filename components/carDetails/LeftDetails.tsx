@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/carousel";
 import CarDetailsProps from "@/types/carDetails";
 import { FaCheck } from "react-icons/fa";
+import FinancingCalculator from "./FinancingCalculator";
 
 export default function LeftDetails({carData}:{carData: CarDetailsProps}) {
     const images = carData.imageUrls
@@ -48,6 +49,7 @@ export default function LeftDetails({carData}:{carData: CarDetailsProps}) {
             ))}
         </div>
       </div>
+      <FinancingCalculator />
     </div>
   );
 }
