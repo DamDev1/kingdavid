@@ -1,5 +1,6 @@
 import React from "react";
 import { Input } from "../ui/input";
+import { UseFormRegister } from "react-hook-form";
 
 interface InputProps {
   item: {
@@ -8,19 +9,17 @@ interface InputProps {
     fieldType?: string;
     required?: boolean;
   };
-  handleChange: (name: string, value: string) => void;
+  register: UseFormRegister<any>;
 }
 
-export default function InputForm({ item, handleChange }: InputProps) {
+export default function InputForm({ item, register }: InputProps) {
   return (
     <div>
       <Input
         id={item.name}
-        name={item.name}
-        type={item?.fieldType || "text"} // Default to "text" if not provided
-        required={item?.required || false}
+        {...register(item.name, { required: item.required })}
+        type={item?.fieldType || "text"}
         placeholder={item.label}
-        onChange={(e) => handleChange(item.name, e.target.value)}
         className="mt-1 w-full border rounded-md px-3 py-2"
       />
     </div>
