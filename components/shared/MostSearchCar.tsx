@@ -89,7 +89,7 @@ export default function MostSearchCar() {
                   <Separator className="my-5 border" />
                   <div className="justify-between flex items-center">
                     <h2 className="font-bold text-xl">${car?.sellingPrice}</h2>
-                    <h2 className="text-blue-600 text-sm flex gap-2 items-center max-md:hidden">
+                    <h2 className="text-blue-600 text-sm flex gap-2 items-center max-md:hidden cursor-pointer" onClick={() => navigate.push(`/car-details/${car?._id}`)}>
                       <MdOpenInNew />
                       View Details
                     </h2>
