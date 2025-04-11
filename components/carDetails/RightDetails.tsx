@@ -103,6 +103,9 @@ export default function RightDetails({
             Mail: samueldamilare622@gmail.com
           </Link>
         </p>
+        <Button className="w-full mt-5 flex items-center">
+          Message Dealer
+        </Button>
       </div>
     </div>
   );

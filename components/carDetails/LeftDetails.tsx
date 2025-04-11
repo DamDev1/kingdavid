@@ -13,6 +13,7 @@ import FinancingCalculator from "./FinancingCalculator";
 export default function LeftDetails({carData}:{carData: CarDetailsProps}) {
     const images = carData.imageUrls
     const features = carData.features
+    const carPrice = carData.sellingPrice
   return (
     <div className="w-full">
       <div>
@@ -49,7 +50,7 @@ export default function LeftDetails({carData}:{carData: CarDetailsProps}) {
             ))}
         </div>
       </div>
-      <FinancingCalculator />
+      <FinancingCalculator carPrice={carPrice} />
     </div>
   );
 }

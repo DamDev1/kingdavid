@@ -1,16 +1,25 @@
+import CarDetailsProps from "@/types/carDetails";
 import React, { useState } from "react";
-
-const FinancingCalculator: React.FC = () => {
-  const [price, setPrice] = useState<number>(0);
-  const [interestRate, setInterestRate] = useState<number>(0);
-  const [loanTerm, setLoanTerm] = useState<number>(0);
-  const [downPayment, setDownPayment] = useState<number>(0);
+export default function FinancingCalculator({
+  carPrice,
+}: {
+    carPrice: number;
+}) {
+  const [price, setPrice] = useState(carPrice.toString());
+  const [interestRate, setInterestRate] = useState("");
+  const [loanTerm, setLoanTerm] = useState("");
+  const [downPayment, setDownPayment] = useState("");
   const [monthlyPayment, setMonthlyPayment] = useState<number | null>(null);
 
   const handleCalculate = () => {
-    const principal = price - downPayment;
-    const monthlyInterest = interestRate / 100 / 12;
-    const numberOfPayments = loanTerm * 12;
+    const principal = Number(price) - Number(downPayment);
+    const monthlyInterest = Number(interestRate) / 100 / 12;
+    const numberOfPayments = Number(loanTerm) * 12;
+
+    if (principal <= 0 || monthlyInterest <= 0 || numberOfPayments <= 0) {
+      setMonthlyPayment(null);
+      return;
+    }
 
     const monthly =
       (principal * monthlyInterest) /
@@ -29,7 +38,7 @@ const FinancingCalculator: React.FC = () => {
           <input
             type="number"
             value={price}
-            onChange={(e) => setPrice(Number(e.target.value))}
+            onChange={(e) => setPrice(e.target.value)}
             className="w-full border rounded-md px-4 py-2"
           />
         </div>
@@ -38,7 +47,7 @@ const FinancingCalculator: React.FC = () => {
           <input
             type="number"
             value={interestRate}
-            onChange={(e) => setInterestRate(Number(e.target.value))}
+            onChange={(e) => setInterestRate(e.target.value)}
             className="w-full border rounded-md px-4 py-2"
           />
         </div>
@@ -47,7 +56,7 @@ const FinancingCalculator: React.FC = () => {
           <input
             type="number"
             value={loanTerm}
-            onChange={(e) => setLoanTerm(Number(e.target.value))}
+            onChange={(e) => setLoanTerm(e.target.value)}
             className="w-full border rounded-md px-4 py-2"
           />
         </div>
@@ -56,7 +65,7 @@ const FinancingCalculator: React.FC = () => {
           <input
             type="number"
             value={downPayment}
-            onChange={(e) => setDownPayment(Number(e.target.value))}
+            onChange={(e) => setDownPayment(e.target.value)}
             className="w-full border rounded-md px-4 py-2"
           />
         </div>
@@ -77,6 +86,4 @@ const FinancingCalculator: React.FC = () => {
       )}
     </div>
   );
-};
-
-export default FinancingCalculator;
+}

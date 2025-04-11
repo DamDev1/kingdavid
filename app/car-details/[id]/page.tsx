@@ -18,7 +18,6 @@ export default function SingleCarDetails() {
       const res = await axios.get(`/api/single-car`, {
         params: { id: params.id },
       });
-      console.log(res);
       setCarData(res.data.data);
     } catch (error) {
       console.log(error);
@@ -41,7 +40,7 @@ export default function SingleCarDetails() {
               </div>
               <RightDetails carData={carData}/>
             </div>
-            <RelatedListing />
+            <RelatedListing/>
           </div>
           <Footer/>
         </>
