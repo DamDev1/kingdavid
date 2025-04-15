@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CarListing from "@/components/dashboard/carListing/car-listing";
+import Chatbox from "@/components/dashboard/inbox/ChatBox";
 
 export default function Admin() {
   return (
@@ -18,7 +19,9 @@ export default function Admin() {
           <TabsContent value="my-listing">
             <CarListing/>
           </TabsContent>
-          <TabsContent value="inbox">Change your password here.</TabsContent>
+          <TabsContent value="inbox">
+            <Chatbox/>
+          </TabsContent>
         </Tabs>
       </div>
     </div>
