@@ -1,7 +1,6 @@
 import CarDetailsProps from "@/types/carDetails";
 import React from "react";
 import { Button } from "../ui/button";
-import { FaClipboardList } from "react-icons/fa";
 import { FaTag } from "react-icons/fa";
 import { FaDollarSign } from "react-icons/fa";
 import { FaMoneyBillAlt } from "react-icons/fa";
@@ -21,8 +20,6 @@ import { FaPalette } from "react-icons/fa";
 import { FaDoorClosed } from "react-icons/fa";
 import { FaIdCard } from "react-icons/fa";
 import { FaTags } from "react-icons/fa";
-import { FaFileAlt } from "react-icons/fa";
-import Link from "next/link";
 import Owner from "./owner";
 
 const iconMap = {
