@@ -4,16 +4,17 @@ import React, { useState } from "react";
 import { Button } from "../ui/button";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 export default function Owner() {
-  const userInfo = useSelector((state: any) => state.auth.userInfo);
-  console.log(JSON.stringify(userInfo.email));
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
+  console.log(JSON.stringify(userInfo?.user?.email));
   const [isloading, setIsloading] = useState(false);
 
-  const fullName = `${userInfo.user?.firstName || ""} ${
-    userInfo.user?.Samuel || ""
+  const fullName = `${userInfo?.user?.firstName || ""} ${
+    userInfo?.user?.lastName || ""
   }`.trim();
-  const userId = userInfo.user?.email?.split("@")[0] ?? "anonymous";
+  const userId = userInfo?.user?.email?.split("@")[0] ?? "anonymous";
 
   const handleMessage = async () => {
     setIsloading(true);

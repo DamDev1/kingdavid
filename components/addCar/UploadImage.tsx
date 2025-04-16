@@ -1,7 +1,5 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { FaTimes } from 'react-icons/fa';
-import { Button } from '../ui/button';
 
 interface UploadImageProps {
     setSelectedImageFile:React.Dispatch<React.SetStateAction<File[]>>;
@@ -24,9 +22,9 @@ export default function UploadImage({setSelectedImageFile, selectedImageFile}:Up
     }
     
 
-    useEffect(() =>{
-        console.log(selectedImageFile)
-    },[onFileSelected])
+    // useEffect(() =>{
+    //     console.log(selectedImageFile)
+    // },[onFileSelected])
   return (
     <div>
         <h2 className='font-medium text-xl my-6'>Upload Cars Images</h2>

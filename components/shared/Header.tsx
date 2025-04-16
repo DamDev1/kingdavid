@@ -3,9 +3,10 @@ import { Button } from "../ui/button";
 import Logo from "./logo";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 export default function Header() {
-  const userInfo = useSelector((state: any) => state.auth.userInfo);
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
 
   return (
     <header className="p-5 flex justify-between items-center shadow-sm">

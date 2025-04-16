@@ -1,8 +1,8 @@
 "use client";
 import DeleteCarModal from "@/components/modal/deleteCar";
 import { Button } from "@/components/ui/button";
-import { CarouselItem } from "@/components/ui/carousel";
 import { Separator } from "@/components/ui/separator";
+import handlerError from "@/lib/errorHandler";
 import axios from "axios";
 import { Trash2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -11,6 +11,7 @@ import { GiGearStickPattern } from "react-icons/gi";
 import { LuFuel } from "react-icons/lu";
 import { MdOpenInNew } from "react-icons/md";
 import { TbBrandSpeedtest } from "react-icons/tb";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 interface ICar {
@@ -28,6 +29,7 @@ export default function CarListing() {
   const [carData, setCarData] = useState([]);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
   const [carId, setCarId] = useState("");
+  const dispatch = useDispatch();
 
   const handleGetCars = async () => {
     try {
@@ -35,7 +37,8 @@ export default function CarListing() {
       setCarData(res.data.data);
       console.log(res.data.data);
     } catch (error) {
-      console.log(error);
+      const err = handlerError(error, navigate, dispatch);
+      toast.error(`${err}`);
     }
   };
 

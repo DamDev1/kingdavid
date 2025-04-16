@@ -36,6 +36,8 @@ import UploadEditImage from "@/components/editCar.jsx/UploadImage";
 import { toast } from "react-toastify";
 import InputForm from "@/components/editCar.jsx/inputForm";
 import Dropdown from "@/components/editCar.jsx/dropdown";
+import handlerError from "@/lib/errorHandler";
+import { useDispatch } from "react-redux";
 
 interface ICar {
   _id: string;
@@ -96,7 +98,8 @@ export default function EditCar() {
     []
   );
   const [imagesLinks, setImagesLinks] = useState<string[]>([]);
-  const router = useRouter();
+  const navigate = useRouter();
+  const dispatch = useDispatch()
 
   const handleSingleCar = async () => {
     try {
@@ -104,8 +107,10 @@ export default function EditCar() {
         params: { id: params.id },
       });
       setCarData(res.data.data);
-      console.log(res.data.data);
-    } catch (error) {}
+    } catch (error) {
+      const err = handlerError(error, navigate, dispatch);
+      toast.error(`${err}`);
+    }
   };
 
   const handleChange = (name: string, value: string) => {
@@ -176,10 +181,10 @@ export default function EditCar() {
         params: { id: params.id },
       });
       toast.success("Car Added Successfully");
-      router.push("/dashboard");
+      navigate.push("/dashboard");
     } catch (error) {
-      console.error(error);
-      toast.error("Failed to submit the form. Try again.");
+      const err = handlerError(error, navigate, dispatch);
+      toast.error(`${err}`);
     } finally {
       setLoading(false);
     }

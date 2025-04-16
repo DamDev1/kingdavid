@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { Loader2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import handlerError from "@/lib/errorHandler";
+import { RootState } from "@/store/store";
 
 export function LoginForm({
   className,
@@ -21,7 +22,7 @@ export function LoginForm({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useRouter();
 
-  const userInfo = useSelector((state: any) => state.auth.userInfo);
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
 
   if (userInfo) {
     navigate.push("/dashboard");

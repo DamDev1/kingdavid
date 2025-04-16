@@ -27,7 +27,7 @@ export default function Dropdown({item, handleChange, formDetails}:Props) {
         <SelectValue placeholder={formDetails[item?.name]} defaultValue={formDetails[item?.name] || ""}/>
       </SelectTrigger>
       <SelectContent>
-        {item?.options?.map((option: any) => (
+        {item?.options?.map((option: string) => (
           <SelectItem key={option} value={option}>
             {option}
           </SelectItem>

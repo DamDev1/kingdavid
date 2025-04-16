@@ -2,6 +2,10 @@ import React from "react";
 import { Input } from "../ui/input";
 import { UseFormRegister } from "react-hook-form";
 
+interface FormData {
+  [key: string]: string;
+}
+
 interface InputProps {
   item: {
     name: string;
@@ -9,7 +13,7 @@ interface InputProps {
     fieldType?: string;
     required?: boolean;
   };
-  register: UseFormRegister<any>;
+  register: UseFormRegister<FormData>;
 }
 
 export default function InputForm({ item, register }: InputProps) {

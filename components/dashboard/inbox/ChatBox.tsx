@@ -7,14 +7,15 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { GroupChannelList } from "@sendbird/uikit-react/GroupChannelList";
 import { GroupChannel } from "@sendbird/uikit-react/GroupChannel";
+import { RootState } from "@/store/store";
 
 function Chatbox() {
   const APP_ID = process.env.SENDBIRD_API_ID;
   const ACCESS_TOKEN = process.env.SENDBIRD_ACCESS_TOKEN;
 
-  const userInfo = useSelector((state: any) => state.auth.userInfo);
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
   const [channelUrl, setChannelUrl] = useState("");
-  const userId = userInfo.user?.email?.split("@")[0] ?? "anonymous";
+  const userId = userInfo?.user?.email?.split("@")[0] ?? "anonymous";
 
   return (
     <div className="w-full h-[80vh] md:h-[90vh] p-2">
@@ -29,14 +30,14 @@ function Chatbox() {
         <div className="flex flex-col md:flex-row h-full border rounded-lg overflow-hidden shadow-md">
           <div className="w-full md:w-1/3 border-r h-[300px] md:h-auto overflow-y-auto">
             <GroupChannelList
-              onChannelSelect={(channel: any) => {
-                setChannelUrl(channel?.url);
+              onChannelSelect={(channel) => {
+                setChannelUrl(channel?.url ?? '');
               }}
               channelListQueryParams={{
                 includeEmpty: true,
               }}
               isMessageReceiptStatusEnabled={true}
-              onChannelCreated={function (channel: any): void {
+              onChannelCreated={function (): void {
                 throw new Error("Function not implemented.");
               }}
             />

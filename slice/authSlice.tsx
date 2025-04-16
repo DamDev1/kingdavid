@@ -2,11 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserInfo {
   avatar: string;
-  role: string;
   token: string;
-  first_name?: string;
-  last_name?: string;
-  email?: string;
+  user: {
+    role: string;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+  };
 }
 
 interface AuthState {
@@ -54,6 +56,7 @@ const authSlice = createSlice({
 export const { setCredentials, clearCredentials } = authSlice.actions;
 
 // Selector for userInfo
-export const selectUserInfo = (state: { auth: AuthState }) => state.auth.userInfo;
+export const selectUserInfo = (state: { auth: AuthState }) =>
+  state.auth.userInfo;
 
 export default authSlice.reducer;

@@ -25,7 +25,7 @@ export default function Dropdown({item, handleChange}:Props) {
         <SelectValue/>
       </SelectTrigger>
       <SelectContent>
-        {item?.options?.map((option: any) => (
+        {item?.options?.map((option: string) => (
           <SelectItem key={option} value={option}>
             {option}
           </SelectItem>

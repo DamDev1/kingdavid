@@ -5,16 +5,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CarListing from "@/components/dashboard/carListing/car-listing";
 import Chatbox from "@/components/dashboard/inbox/ChatBox";
 import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 export default function Admin() {
-  const userInfo = useSelector((state: any) => state.auth.userInfo);
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
   return (
     <div>
       <Header />
       <div className="px-10 my-10">
-        <Tabs defaultValue={userInfo.user.role === "admin" ? "my-listing" : "inbox"} className="w-full">
+        <Tabs defaultValue={userInfo?.user?.role === "admin" ? "my-listing" : "inbox"} className="w-full">
           <TabsList className="w-full justify-start flex">
-            {userInfo.user.role === "admin" && (
+            {userInfo?.user.role === "admin" && (
               <TabsTrigger value="my-listing" className=" cursor-pointer">
                 My Listing
               </TabsTrigger>
@@ -27,7 +28,7 @@ export default function Admin() {
               Profile
             </TabsTrigger>
           </TabsList>
-          {userInfo.user.role === "admin" && (
+          {userInfo?.user.role === "admin" && (
             <TabsContent value="my-listing">
               <CarListing />
             </TabsContent>
