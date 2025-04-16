@@ -1,5 +1,4 @@
-import CarDetailsProps from "@/types/carDetails";
-import { Calendar } from "lucide-react";
+import CarDetailsProps from "@/types/carDetails"
 import React, { Fragment } from "react";
 import { FaCalendarAlt, FaGasPump } from "react-icons/fa";
 import { GiGearStickPattern } from "react-icons/gi";

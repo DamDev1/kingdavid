@@ -1,4 +1,3 @@
-import CarDetailsProps from "@/types/carDetails";
 import React, { useState } from "react";
 export default function FinancingCalculator({
   carPrice,

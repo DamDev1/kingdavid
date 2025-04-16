@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/components/ui/sonner"
 import ClientProviders from "@/slice/ClientProviders";
 
 // const geistSans = Geist({

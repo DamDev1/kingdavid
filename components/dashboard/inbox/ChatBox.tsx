@@ -1,5 +1,4 @@
 import {
-  App as SendbirdApp,
   SendBirdProvider,
 } from "@sendbird/uikit-react";
 import "@sendbird/uikit-react/dist/index.css";
