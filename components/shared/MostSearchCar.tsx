@@ -42,7 +42,7 @@ export default function MostSearchCar() {
         <CarouselContent>
           {carData.slice(0, 10).map((car: ICar, index: number) => (
             <CarouselItem className="basis-1/4 max-md:basis-1/2" key={index}>
-              <div className="shadow-lg rounded-xl bg-white relative">
+              <div className="shadow-lg rounded-xl bg-white relative" onClick={() => navigate.push(`/car-details/${car?._id}`)}>
                 <h2 className="absolute top-0 bg-green-600 m-2 rounded-full text-white text-sm font-semibold px-2 py-1">
                   New
                 </h2>
@@ -98,7 +98,7 @@ export default function MostSearchCar() {
           <CarouselContent>
             {carData.slice(0, 10).map((car: ICar, index: number) => (
               <CarouselItem className="basis-1/4 max-md:basis-1/2" key={index}>
-                <div className="shadow-lg rounded-xl bg-white relative">
+                <div className="shadow-lg rounded-xl bg-white relative" onClick={() => navigate.push(`/car-details/${car?._id}`)}>
                   <h2 className="absolute top-0 bg-green-600 m-2 rounded-full text-white text-sm font-semibold px-2 py-1">
                     New
                   </h2>
@@ -137,7 +137,7 @@ export default function MostSearchCar() {
                       <h2 className="font-bold text-xl">
                         ${car?.sellingPrice}
                       </h2>
-                      <h2 className="text-blue-600 text-sm flex gap-2 items-center max-md:hidden">
+                      <h2 className="text-blue-600 text-sm flex gap-2 items-center max-md:hidden cursor-pointer" onClick={() => navigate.push(`/car-details/${car?._id}`)}>
                         <MdOpenInNew />
                         View Details
                       </h2>

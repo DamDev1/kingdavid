@@ -3,7 +3,7 @@ import SearchCar from "@/components/searchcar/SearchCar";
 import Header from "@/components/shared/Header";
 import { Separator } from "@/components/ui/separator";
 import axios from "axios";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { GiGearStickPattern } from "react-icons/gi";
 import { LuFuel } from "react-icons/lu";
@@ -27,6 +27,7 @@ export default function SearchPage() {
   const make = searchParams.get("make");
   const minPrice = searchParams.get("minPrice");
   const maxPrice = searchParams.get("maxPrice");
+  const navigate = useRouter()
 
   const handleGetCars = async () => {
     try {
@@ -95,6 +96,7 @@ export default function SearchPage() {
                 <div
                   className="shadow-lg rounded-xl bg-white relative"
                   key={index}
+                  onClick={() => navigate.push(`/car-details/${car?._id}`)}
                 >
                   <h2 className="absolute top-0 bg-green-600 m-2 rounded-full text-white text-sm font-semibold px-2 py-1">
                     New
