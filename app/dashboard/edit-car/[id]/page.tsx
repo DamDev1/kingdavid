@@ -1,5 +1,4 @@
 "use client";
-import UploadImage from "@/components/addCar/UploadImage";
 import Header from "@/components/shared/Header";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -90,7 +89,7 @@ const iconMap = {
 export default function EditCar() {
   const params = useParams();
   const [carData, setCarData] = useState<ICar | null>(null);
-  const [formDetails, setFormDetails] = useState<{ [key: string]: any }>({});
+  const [formDetails, setFormDetails] = useState<{ [key: string]: string }>({});
   const [loading, setLoading] = useState(false);
   const [featuresContainer, setFeaturesContainer] = useState<string[]>([]);
   const [selectedImageFile, setSelectedImageFile] = useState<(File | string)[]>(
@@ -192,8 +191,11 @@ export default function EditCar() {
 
   useEffect(() => {
     if (carData) {
+      const formDetails = Object.fromEntries(
+        Object.keys(carData).map((key) => [key, (carData[key as keyof ICar] ?? "").toString()])
+      );      
+      setFormDetails(formDetails);
       setSelectedImageFile(carData.imageUrls);
-      setFormDetails(carData);
       setFeaturesContainer(carData.features || []);
     }
   }, [carData]);

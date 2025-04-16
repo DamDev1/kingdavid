@@ -41,7 +41,7 @@ export default function AddCar() {
     );
   };
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: Record<string, unknown> ) => {
     setLoading(true);
 
     const isFormValid =

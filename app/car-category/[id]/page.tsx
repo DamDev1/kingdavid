@@ -20,7 +20,7 @@ interface ICar {
   sellingPrice: string;
 }
 
-export default function page() {
+export default function CarCategory() {
   const [carData, setCarData] = useState([]);
   const params = useParams();
   const handleGetCars = async () => {

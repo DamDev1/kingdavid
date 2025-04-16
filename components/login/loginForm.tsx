@@ -9,6 +9,7 @@ import { setCredentials } from "@/slice/authSlice";
 import { toast } from "sonner";
 import { Loader2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import handlerError from "@/lib/errorHandler";
 
 export function LoginForm({
   className,
@@ -40,9 +41,10 @@ export function LoginForm({
         navigate.push("/");
       }
       setIsLoading(false);
-    } catch (error: any) {
+    } catch (error) {
       setIsLoading(false);
-      toast.error(error.response.data.error);
+      const err = handlerError(error, navigate, dispatch);
+      toast.error(`${err}`);
     }
   }
   return (
