@@ -1,3 +1,4 @@
+"use client"
 import {
   SendBirdProvider,
 } from "@sendbird/uikit-react";
