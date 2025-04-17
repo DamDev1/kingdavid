@@ -1,5 +1,5 @@
 // Optimized AddCar.tsx using React Hook Form
-"use client";
+'use client';
 
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";

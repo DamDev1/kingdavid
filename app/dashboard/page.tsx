@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import Header from "@/components/shared/Header";
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -6,8 +6,10 @@ import CarListing from "@/components/dashboard/carListing/car-listing";
 import Chatbox from "@/components/dashboard/inbox/ChatBox";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import { useHydrateUserInfo } from "@/hooks/useHydrateUserInfo";
 
 export default function Admin() {
+  useHydrateUserInfo(); 
   const userInfo = useSelector((state: RootState) => state.auth.userInfo);
   return (
     <div>

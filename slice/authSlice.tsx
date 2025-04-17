@@ -1,3 +1,4 @@
+// store/slices/authSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserInfo {
@@ -15,23 +16,8 @@ interface AuthState {
   userInfo: UserInfo | null;
 }
 
-const isBrowser = typeof window !== "undefined";
-
-const getInitialUserInfo = (): UserInfo | null => {
-  if (isBrowser) {
-    try {
-      const storedUserInfo = localStorage.getItem("userInfo");
-      return storedUserInfo ? JSON.parse(storedUserInfo) : null;
-    } catch {
-      console.error("Failed to parse userInfo from localStorage.");
-      return null;
-    }
-  }
-  return null;
-};
-
 const initialState: AuthState = {
-  userInfo: getInitialUserInfo(),
+  userInfo: null,
 };
 
 const authSlice = createSlice({
@@ -40,13 +26,13 @@ const authSlice = createSlice({
   reducers: {
     setCredentials: (state, action: PayloadAction<UserInfo>) => {
       state.userInfo = action.payload;
-      if (isBrowser) {
+      if (typeof window !== "undefined") {
         localStorage.setItem("userInfo", JSON.stringify(action.payload));
       }
     },
     clearCredentials: (state) => {
       state.userInfo = null;
-      if (isBrowser) {
+      if (typeof window !== "undefined") {
         localStorage.removeItem("userInfo");
       }
     },
@@ -54,9 +40,5 @@ const authSlice = createSlice({
 });
 
 export const { setCredentials, clearCredentials } = authSlice.actions;
-
-// Selector for userInfo
-export const selectUserInfo = (state: { auth: AuthState }) =>
-  state.auth.userInfo;
-
+export const selectUserInfo = (state: { auth: AuthState }) => state.auth.userInfo;
 export default authSlice.reducer;
