@@ -1,6 +1,5 @@
-// app/dashboard/page.tsx
+// app/dashboard/DashboardClient.tsx
 "use client";
-
 import Header from "@/components/shared/Header";
 import React, { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -9,7 +8,7 @@ import Chatbox from "@/components/dashboard/inbox/ChatBox";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 
-export default function DashboardPage() {
+export default function DashboardClient() {
   const userInfo = useSelector((state: RootState) => state.auth.userInfo);
 
   const [mounted, setMounted] = useState(false);
