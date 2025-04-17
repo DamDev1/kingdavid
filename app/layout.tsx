@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import ClientProviders from "@/slice/ClientProviders";
+import { ReduxProvider } from "@/store/provider";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -17,7 +18,7 @@ const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
   weight: ["400", "700"], // Add this line
-})
+});
 
 export const metadata: Metadata = {
   title: "KingDavidAuto",
@@ -31,10 +32,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${poppins.variable} ${poppins.variable} antialiased`}
-      >
-        <ClientProviders>{children}</ClientProviders>
+      <body className={`${poppins.variable} ${poppins.variable} antialiased`}>
+        <ReduxProvider>
+          <ClientProviders>{children}</ClientProviders>
+        </ReduxProvider>
       </body>
     </html>
   );
