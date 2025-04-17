@@ -20,7 +20,7 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: "King David",
+  title: "KingDavidAuto",
   description: "Buy your dream car",
 };
 
