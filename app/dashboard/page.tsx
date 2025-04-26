@@ -8,12 +8,17 @@ import CarListing from "@/components/dashboard/carListing/car-listing";
 import Chatbox from "@/components/dashboard/inbox/ChatBox";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import { useRouter } from "next/router";
 
 export default function DashboardPage() {
   const userInfo = useSelector((state: RootState) => state.auth.userInfo);
+  const navigate = useRouter()
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
+    if(!userInfo){
+      navigate.replace("/login")
+    }
     setMounted(true);
   }, []);
 
