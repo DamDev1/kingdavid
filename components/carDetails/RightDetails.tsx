@@ -1,5 +1,5 @@
 import CarDetailsProps from "@/types/carDetails";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { FaTag } from "react-icons/fa";
 import { FaDollarSign } from "react-icons/fa";
@@ -21,6 +21,9 @@ import { FaDoorClosed } from "react-icons/fa";
 import { FaIdCard } from "react-icons/fa";
 import { FaTags } from "react-icons/fa";
 import Owner from "./owner";
+import NotSignIn from "../Error/NotSignIn";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const iconMap = {
   originalPrice: <FaDollarSign />,
@@ -48,16 +51,25 @@ export default function RightDetails({
 }: {
   carData: CarDetailsProps;
 }) {
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
+  const [isSignedIn, setIsSignedIn] = useState(false);
   const price = Number(carData.sellingPrice).toLocaleString("en-US", {
     style: "currency",
     currency: "USD",
   });
+
+  const handleMessage = async () => {
+    if (!userInfo) {
+      setIsSignedIn(true);
+    }
+  };
   return (
     <div>
+      <NotSignIn setIsSignedIn={setIsSignedIn} isSignedIn={isSignedIn} />
       <div className="bg-white p-8 shadow-md border rounded-md">
         <h2 className="text-lg font-semibold">Our Price</h2>
         <h2 className="text-3xl font-bold mt-2">{price}</h2>
-        <Button className="w-full mt-5 flex items-center">
+        <Button className="w-full mt-5 flex items-center" onClick={handleMessage}>
           Make an Offer Price
           <FaTag className="h-3 w-3" />
         </Button>
