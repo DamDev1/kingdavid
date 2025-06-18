@@ -10,6 +10,7 @@ export default function HeroSection() {
         <h2 className="text-lg">Find a car for sale and fro rent near you</h2>
         <p className="text-[60px] font-bold">Find your dream car</p>
         <Search />
+        <div className="w-full h-full max-md:hidden">
         <Image
           width={500}
           height={500}
@@ -17,6 +18,7 @@ export default function HeroSection() {
           alt="hero"
           className="w-full mt-10"
         />
+        </div>
       </div>
     </div>
   );

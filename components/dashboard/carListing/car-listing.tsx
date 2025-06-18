@@ -61,13 +61,14 @@ export default function CarListing() {
           +Add Listing
         </Button>
       </div>
-      <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+      <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 max-md:grid-cols-1">
         {carData.map((car: ICar, index: number) => (
           <div className="shadow-lg rounded-xl bg-white relative" key={index}>
             <h2 className="absolute top-0 bg-green-600 m-2 rounded-full text-white text-sm font-semibold px-2 py-1">
               New
             </h2>
             <div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={car?.imageUrls[0]}
                 className="rounded-t-xl h-[190px] object-cover"

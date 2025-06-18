@@ -8,11 +8,11 @@ import CarListing from "@/components/dashboard/carListing/car-listing";
 import Chatbox from "@/components/dashboard/inbox/ChatBox";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function DashboardPage() {
   const userInfo = useSelector((state: RootState) => state.auth.userInfo);
-  const navigate = useRouter()
+  const navigate = useRouter();
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -20,14 +20,14 @@ export default function DashboardPage() {
       navigate.replace("/login")
     }
     setMounted(true);
-  }, []);
+  }, [userInfo]);
 
   if (!mounted) return null;
 
   return (
     <div>
       <Header />
-      <div className="px-10 my-10">
+      <div className="px-10 my-10 max-md:px-5">
         <Tabs
           defaultValue={
             userInfo?.user?.role === "admin" ? "my-listing" : "inbox"

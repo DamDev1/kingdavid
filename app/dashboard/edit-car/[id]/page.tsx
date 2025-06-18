@@ -207,10 +207,10 @@ export default function EditCar() {
   return (
     <section>
       <Header />
-      <div className="px-10 md:px-20 my-10">
+      <div className="px-10 md:px-20 my-10 max-md:px-5">
         <h2 className="font-bold text-4xl">Edit Car</h2>
 
-        <form onSubmit={handleSubmit} className="mt-10 p-10 border rounded-xl">
+        <form onSubmit={handleSubmit} className="mt-10 p-10 border rounded-xl max-md:p-5">
           {/* Car Details */}
           <div>
             <h2 className="font-medium text-xl mb-6">Car Details</h2>

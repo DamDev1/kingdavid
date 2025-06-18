@@ -144,7 +144,7 @@ export default function SearchCar() {
 
   const route = useRouter();
   return (
-    <div className="flex items-center p-2 md:p-5 bg-white rounded-md md:rounded-full flex-col md:flex-row max-md:gap-3 gap-10 px-5 w-[70%]">
+    <div className="flex items-center p-2 md:p-5 bg-white rounded-md md:rounded-full flex-col md:flex-row max-md:gap-3 gap-10 px-5 w-[70%] max-md:w-full">
       <Select onValueChange={(value) => setCar(value)}>
         <SelectTrigger className="outline-none md:border-none w-full shawdow-none text-lg">
           <SelectValue placeholder="Car" />

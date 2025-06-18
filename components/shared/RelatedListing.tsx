@@ -54,14 +54,14 @@ export default function RelatedListing() {
                 .slice(0, 5)
                 .map((car: ICar, index: number) => (
                   <CarouselItem
-                    className="basis-1/4 max-md:basis-1/2"
-                    key={index}
+                    className="basis-1/4 max-sm:basis-[85%] max-lg:basis-1/3" key={index}
                   >
                     <div className="shadow-lg rounded-xl bg-white relative" onClick={() => navigate.push(`/car-details/${car?._id}`)}>
                       <h2 className="absolute top-0 bg-green-600 m-2 rounded-full text-white text-sm font-semibold px-2 py-1">
                         New
                       </h2>
                       <div>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={car?.imageUrls[0]}
                           className="rounded-t-xl h-[190px] object-cover"
@@ -99,7 +99,7 @@ export default function RelatedListing() {
                             ${car?.sellingPrice}
                           </h2>
                           <h2
-                            className=" text-blue-600 text-sm flex gap-2 items-center max-md:hidden cursor-pointer"
+                            className=" text-blue-600 text-sm flex gap-2 items-center cursor-pointer"
                             onClick={() =>
                               navigate.push(`/car-details/${car?._id}`)
                             }

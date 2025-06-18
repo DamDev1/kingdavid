@@ -93,7 +93,7 @@ export default function RightDetails({
         </ul>
       </div>
 
-      <Owner />
+      <Owner carData={carData}/>
     </div>
   );
 }

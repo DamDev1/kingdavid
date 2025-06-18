@@ -51,7 +51,7 @@ export default function Category() {
     },
   ];
   return (
-    <section className="mt-40">
+    <section className="mt-40 max-md:mt-10">
       <h1 className="text-3xl font-bold text-center mb-16">Browse By Type</h1>
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-6 px-20 max-md:px-5">
         {Category.map((type) => (

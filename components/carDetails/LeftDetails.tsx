@@ -21,6 +21,7 @@ export default function LeftDetails({carData}:{carData: CarDetailsProps}) {
           <CarouselContent>
             {images.map((image, index) => (
               <CarouselItem key={index}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={image}
                   alt=""
