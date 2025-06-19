@@ -11,6 +11,7 @@ export default function Header() {
   const pathname = usePathname();
   const isDashboard = pathname.includes("/dashboard");
 
+
   return (
     <header className="p-5 flex justify-between items-center shadow-sm">
       <Logo />
