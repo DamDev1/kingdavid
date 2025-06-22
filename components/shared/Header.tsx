@@ -39,7 +39,7 @@ export default function Header() {
         </li>
       </nav>
       <div className="flex gap-2.5 items-center">
-        {userInfo && isDashboard ? (
+        {userInfo ? (
           isDashboard ? (
             <div className="flex gap-2">
               <Link href="/">

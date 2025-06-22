@@ -55,7 +55,7 @@ export default function RightDetails({
 }) {
   const userInfo = useSelector((state: RootState) => state.auth.userInfo);
   const navigate = useRouter();
-  const {setCarData}=useSingleCarDetails()
+  const { setCarData } = useSingleCarDetails();
   const [isSignedIn, setIsSignedIn] = useState(false);
   const price = Number(carData.sellingPrice).toLocaleString("en-US", {
     style: "currency",
@@ -63,8 +63,12 @@ export default function RightDetails({
   });
 
   const handleMessage = async () => {
-    setCarData(carData);
-    navigate.push(`/car-details/${carData._id}/checkout`);
+    if (!userInfo) {
+      setIsSignedIn(true);
+    } else {
+      setCarData(carData);
+      navigate.push(`/car-details/${carData._id}/checkout`);
+    }
   };
   return (
     <div>
@@ -72,7 +76,10 @@ export default function RightDetails({
       <div className="bg-white p-8 shadow-md border rounded-md">
         <h2 className="text-lg font-semibold">Our Price</h2>
         <h2 className="text-3xl font-bold mt-2">{price}</h2>
-        <Button className="w-full mt-5 flex items-center" onClick={handleMessage}>
+        <Button
+          className="w-full mt-5 flex items-center"
+          onClick={handleMessage}
+        >
           Make an Offer Price
           <FaTag className="h-3 w-3" />
         </Button>
@@ -96,7 +103,7 @@ export default function RightDetails({
         </ul>
       </div>
 
-      <Owner carData={carData}/>
+      <Owner carData={carData} />
     </div>
   );
 }
