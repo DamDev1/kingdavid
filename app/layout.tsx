@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import ClientProviders from "@/slice/ClientProviders";
-import { ReduxProvider } from "@/store/provider";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -33,9 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} ${poppins.variable} antialiased`}>
-        <ReduxProvider>
-          <ClientProviders>{children}</ClientProviders>
-        </ReduxProvider>
+         <ClientProviders>{children}</ClientProviders>
       </body>
     </html>
   );

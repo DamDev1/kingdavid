@@ -1,4 +1,3 @@
-// store/slices/authSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserInfo {
@@ -16,8 +15,20 @@ interface AuthState {
   userInfo: UserInfo | null;
 }
 
+const getInitialUserInfo = (): UserInfo | null => {
+  if (typeof window !== "undefined") {
+    try {
+      const stored = localStorage.getItem("userInfo");
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  }
+  return null;
+};
+
 const initialState: AuthState = {
-  userInfo: null,
+  userInfo: getInitialUserInfo(),
 };
 
 const authSlice = createSlice({

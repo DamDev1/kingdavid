@@ -11,7 +11,17 @@ export default function ClientProviders({
   return (
     <Provider store={store}>
       <ProtectedLayout>
-        <ToastContainer />
+        <ToastContainer 
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         {children}
       </ProtectedLayout>
     </Provider>

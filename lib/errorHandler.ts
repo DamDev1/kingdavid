@@ -2,6 +2,11 @@ import { clearCredentials } from "@/slice/authSlice";
 import { Dispatch } from "@reduxjs/toolkit";
 
 interface ErrorResponse {
+  response?: {
+    data?: {
+      error?: string;
+    };
+  }
   data?: {
     message?: string;
   };
@@ -9,19 +14,19 @@ interface ErrorResponse {
 }
 
 const handlerError = (
-    error: unknown,
+  error: unknown,
   navigate: { push: (path: string) => void },
   dispatch: Dispatch
 ): string | void => {
-    const err = error as ErrorResponse;
+  const err = error as ErrorResponse;
   if (
     (err?.data?.message || err.error) === "Token expired, Please sign in again."
   ) {
     dispatch(clearCredentials());
     navigate.push("/login");
     return;
-  } else {
-    return err?.data?.message || err.error || "An error occurred.";
+  }else {
+    return err?.data?.message || err.response?.data?.error || err.error || "An error occurred.";
   }
 };
 
