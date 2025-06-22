@@ -24,8 +24,6 @@ export function LoginForm({
 
   const userInfo = useSelector((state: RootState) => state.auth.userInfo);
 
-  console.log(userInfo);
-
   if (userInfo) {
     navigate.push("/dashboard");
   }

@@ -2,15 +2,24 @@ import React, { Fragment } from "react";
 import { Button } from "../ui/button";
 import Logo from "./logo";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { clearCredentials } from "@/slice/authSlice";
+import { toast } from "react-toastify";
 
 export default function Header() {
   const userInfo = useSelector((state: RootState) => state.auth.userInfo);
   const pathname = usePathname();
   const isDashboard = pathname.includes("/dashboard");
+  const navigate = useRouter();
+  const dispatch = useDispatch();
 
+  const handleLogin = () => {
+    dispatch(clearCredentials())
+    toast.success("Logout successful");
+    navigate.push('/login');
+  };
 
   return (
     <header className="p-5 flex justify-between items-center shadow-sm">
@@ -30,11 +39,14 @@ export default function Header() {
         </li>
       </nav>
       <div className="flex gap-2.5 items-center">
-        {userInfo && !isDashboard ? (
+        {userInfo && isDashboard ? (
           isDashboard ? (
-            <Link href="/">
-              <Button>Home</Button>
-            </Link>
+            <div className="flex gap-2">
+              <Link href="/">
+                <Button>Home</Button>
+              </Link>
+              <Button onClick={handleLogin} variant={'destructive'}>Logout</Button>
+            </div>
           ) : (
             <Link href="/dashboard">
               <Button>Dashboard</Button>
