@@ -1,4 +1,5 @@
 interface CarDetailsProps {
+    _id: string;
     listingTitle: string;
     tagline?: string;
     originalPrice: number;

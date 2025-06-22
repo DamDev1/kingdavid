@@ -24,6 +24,8 @@ import Owner from "./owner";
 import NotSignIn from "../Error/NotSignIn";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import { useSingleCarDetails } from "@/context/useSingleCarDetails";
+import { useRouter } from "next/navigation";
 
 const iconMap = {
   originalPrice: <FaDollarSign />,
@@ -52,6 +54,8 @@ export default function RightDetails({
   carData: CarDetailsProps;
 }) {
   const userInfo = useSelector((state: RootState) => state.auth.userInfo);
+  const navigate = useRouter();
+  const {setCarData}=useSingleCarDetails()
   const [isSignedIn, setIsSignedIn] = useState(false);
   const price = Number(carData.sellingPrice).toLocaleString("en-US", {
     style: "currency",
@@ -59,9 +63,8 @@ export default function RightDetails({
   });
 
   const handleMessage = async () => {
-    if (!userInfo) {
-      setIsSignedIn(true);
-    }
+    setCarData(carData);
+    navigate.push(`/car-details/${carData._id}/checkout`);
   };
   return (
     <div>
