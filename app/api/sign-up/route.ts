@@ -2,13 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import connectMongo from "@/lib/mongodb";
 import User from "@/modals/userModal";
+import transporter from "@/config/emailTransporter";
+import getVerificationEmail from "@/emailTemplate/verificationEmail";
 
 
 export async function POST(req: NextRequest) {
 
   try {
     await connectMongo();
-    const { firstName,lastName, role, email, password } = await req.json();
+    const { firstName, lastName, role, email, password } = await req.json();
+
+    const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
+
 
     // ✅ Validate input fields
     if (!firstName || !lastName || !role || !email || !password) {
@@ -22,7 +28,7 @@ export async function POST(req: NextRequest) {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return NextResponse.json(
-        { error: "Email already exists" },
+        { error: "User already exists" },
         { status: 409 } // 409 Conflict status
       );
     }
@@ -30,12 +36,22 @@ export async function POST(req: NextRequest) {
     // ✅ Hash password before saving
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // ✅ send verifiction code
+    await transporter.sendMail({
+      from: "KingDavidAuto<kingdavidauto@gmail.com>",
+      to: email,
+      subject: "Verification Code",
+      html: getVerificationEmail({ firstName, verificationCode }),
+    })
+
     const newUser = new User({
       firstName,
       lastName,
       role,
       email,
       password: hashedPassword,
+      verificationCode,
+      verificationCodeExpires: expiresAt
     });
 
     await newUser.save();

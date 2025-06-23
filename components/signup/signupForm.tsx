@@ -34,7 +34,7 @@ export function SignupForm({
         role: "user",
       });
       toast.success("Sign up successful!");
-      navigate.push("/login");
+      navigate.push(`/verify-otp?email=${email}`);
       setIsLoading(false);
     } catch (error) {
       const err = handlerError(error, navigate, dispatch);
